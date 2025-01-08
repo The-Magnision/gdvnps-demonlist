@@ -1,0 +1,20 @@
+<script>
+    import { supabase } from '../../db/supabase'
+
+    async function handleAuthCallback() {
+        const hash = window.location.hash
+        if (hash) {
+            const { data, error } = await supabase.auth.getSession()
+            if (!error && data.session) {
+                const next = new URLSearchParams(window.location.search).get('next') || '/'
+                window.location.href = next
+            }
+        }
+    }
+
+    handleAuthCallback()
+</script>
+
+<div class="flex items-center font-serif justify-center min-h-screen">
+    <p>Login completed, you will be redirect soon...(in 5 years) (just kidding)</p>
+</div>
